@@ -38,9 +38,10 @@ class DataProvider {
     return AllCharacters.fromJson(response.data);
   }
 
-  static Future<AllEpisodes> getAllEpisodes({required String page}) async {
+  static Future fetchPageCharacters({required int page}) async {
     var options = BaseOptions(
-      baseUrl: page,
+      baseUrl:
+          'https://rickandmortyapi.com/api/character/?page=' + page.toString(),
       connectTimeout: 5000,
       receiveTimeout: 3000,
       responseType: ResponseType.plain,
@@ -50,11 +51,10 @@ class DataProvider {
 
     final response = await dio.request('');
     // print(response.data);
-    return AllEpisodes.fromJson(response.data);
+    return AllCharacters.fromJson(response.data);
   }
 
-  static Future<List<Episode>> getSelectedEpisodes(
-      {required String page}) async {
+  static Future<AllEpisodes> getSelectedEpisodes({required String page}) async {
     var options = BaseOptions(
       baseUrl: 'https://rickandmortyapi.com/api/episode/' + page,
       connectTimeout: 5000,
@@ -65,8 +65,12 @@ class DataProvider {
     late Dio dio = Dio(options);
     print(options.baseUrl);
     final response = await dio.request('');
-    // print(response.data);
+    print(response.data);
+    AllEpisodes episodelist = AllEpisodes.fromJson(response.data);
+    //response.data;
+
     // return List<Episode.fromJson(response.data)>;
-    return [];
+    // return [];
+    return episodelist;
   }
 }

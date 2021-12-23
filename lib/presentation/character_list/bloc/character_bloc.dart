@@ -10,14 +10,23 @@ part 'character_state.dart';
 class CharacterBloc extends Bloc<CharactersEvent, CharactersState> {
   final CharacterRepository characterRepository;
 
-  CharacterBloc(this.characterRepository) : super(CharacterInitialState()) {
+  CharacterBloc(this.characterRepository)
+      : super(CharactersState(characters: [], isLoading: true, page: 1)) {
     on<CharactersFetchingEvent>((event, emit) async {
-      await characterRepository.getAllCharacters(
-          page: characterRepository.characterInfo.next);
-      characterRepository.getEpisodes();
-      emit(CharacterFetchingState());
-      emit(
-          CharacterFetchedState(characters: characterRepository.characterList));
+      // emit(state.copyWith(
+      //     characters: state.characters,
+      //     isLoading: state.isLoading,
+      //     page: state.page));
+      List<Character> charactersnextpage =
+          await characterRepository.fetchAllCharacters(page: state.page);
+
+      print(state.characters.length);
+      print("state.page : ${state.isLoading}");
+      print(charactersnextpage.length);
+      emit(state.copyWith(
+          characters: List.from(state.characters + charactersnextpage),
+          isLoading: false,
+          page: state.page + 1));
     });
   }
 }

@@ -41,13 +41,13 @@ class CharacterListScreen extends StatelessWidget {
         ),
         body: BlocBuilder<CharacterBloc, CharactersState>(
             builder: (context, state) {
-          if (state is CharacterInitialState) {
+          if (state.isLoading == true) {
             print("Got in Characters Fetching");
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
-
+          print("characters length ${state.characters.length}");
           return ListView.builder(
               controller: scrollcontroller,
               itemCount: state.characters.length,

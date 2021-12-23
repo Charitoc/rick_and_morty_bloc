@@ -1,41 +1,31 @@
 part of 'character_bloc.dart';
 
-@immutable
-abstract class CharactersState extends Equatable {
-  final List<Character> characters = [];
-  // final Info.
-  @override
-  // TODO: implement props
-  List<Object?> get props => [];
-}
-
-class CharacterInitialState extends CharactersState {
-  @override
-  // TODO: implement props
-  List<Object?> get props => [];
-}
-
-class CharacterFetchingState extends CharactersState {
-  CharacterFetchingState();
-  @override
-  // TODO: implement props
-  List<Object?> get props => [];
-}
-
-class CharacterFetchedState extends CharactersState {
-  late final List<Character> characters;
-  //late final Repository repository;
-  CharacterFetchedState({required this.characters});
+class CharactersState extends Equatable {
+  final List<Character> characters;
+  final bool isLoading;
+  final int page;
+  const CharactersState({
+    required this.characters,
+    required this.isLoading,
+    required this.page,
+  });
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [characters];
+  List<Object?> get props => [characters, isLoading, page];
 
-  CharacterFetchedState copyWith({
+  CharactersState loading() => copyWith(isLoading: true);
+
+  // CharactersState success() => null;
+
+  CharactersState copyWith({
     List<Character>? characters,
+    bool? isLoading,
+    int? page,
   }) {
-    return CharacterFetchedState(
+    return CharactersState(
       characters: characters ?? this.characters,
+      isLoading: isLoading ?? this.isLoading,
+      page: page ?? this.page,
     );
   }
 }
