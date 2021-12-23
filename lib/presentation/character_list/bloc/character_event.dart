@@ -3,15 +3,12 @@ part of 'character_bloc.dart';
 @immutable
 abstract class CharactersEvent {}
 
-class CharactersLoadingEvent extends CharactersEvent {
-  CharactersLoadingEvent();
+class CharactersFetchingEvent extends CharactersEvent {
+  // int page = 1;
+  CharactersFetchingEvent();
 }
 
-class CharactersLoadedEvent extends CharactersEvent {
+class CharactersFetchedEvent extends CharactersEvent {
   late final List<Character> allCharacters;
-  CharactersLoadedEvent({required this.allCharacters});
-}
-
-class DummyEvent extends CharactersEvent {
-  DummyEvent();
+  CharactersFetchedEvent({required this.allCharacters});
 }

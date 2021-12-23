@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:rick_morty_bloc/data/models/all_characters.dart';
+import 'package:rick_morty_bloc/data/models/all_episodes.dart';
 import 'package:rick_morty_bloc/data/models/character.dart';
+import 'package:rick_morty_bloc/data/models/episode.dart';
 
 class DataProvider {
   //late Dio dio;
@@ -21,9 +23,9 @@ class DataProvider {
     //return response.data;
   }
 
-  static Future<AllCharacters> getPageCharacters() async {
+  static Future<AllCharacters> getPageCharacters({required String page}) async {
     var options = BaseOptions(
-      baseUrl: 'https://rickandmortyapi.com/api/character',
+      baseUrl: page,
       connectTimeout: 5000,
       receiveTimeout: 3000,
       responseType: ResponseType.plain,
@@ -32,7 +34,39 @@ class DataProvider {
     late Dio dio = Dio(options);
 
     final response = await dio.request('');
-    print(response.data);
+    // print(response.data);
     return AllCharacters.fromJson(response.data);
+  }
+
+  static Future<AllEpisodes> getAllEpisodes({required String page}) async {
+    var options = BaseOptions(
+      baseUrl: page,
+      connectTimeout: 5000,
+      receiveTimeout: 3000,
+      responseType: ResponseType.plain,
+      method: "GET",
+    );
+    late Dio dio = Dio(options);
+
+    final response = await dio.request('');
+    // print(response.data);
+    return AllEpisodes.fromJson(response.data);
+  }
+
+  static Future<List<Episode>> getSelectedEpisodes(
+      {required String page}) async {
+    var options = BaseOptions(
+      baseUrl: 'https://rickandmortyapi.com/api/episode/' + page,
+      connectTimeout: 5000,
+      receiveTimeout: 3000,
+      responseType: ResponseType.plain,
+      method: "GET",
+    );
+    late Dio dio = Dio(options);
+    print(options.baseUrl);
+    final response = await dio.request('');
+    // print(response.data);
+    // return List<Episode.fromJson(response.data)>;
+    return [];
   }
 }

@@ -4,21 +4,24 @@ import 'package:rick_morty_bloc/data/models/character.dart';
 import 'package:rick_morty_bloc/data/repositories/character_repository.dart';
 import 'package:rick_morty_bloc/presentation/character_details/views/character_details_screen.dart';
 
-class CharacterCard extends StatelessWidget {
-  final CharacterRepository repository;
-  final int index;
+class ScreenArguments {
+  final String title;
+  final String message;
 
-  const CharacterCard(this.repository, this.index, {Key? key})
-      : super(key: key);
+  ScreenArguments(this.title, this.message);
+}
+
+class CharacterCard extends StatelessWidget {
+  final Character character;
+  const CharacterCard({Key? key, required this.character}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Character character = repository.characterList[index];
+    // Character character = repository.characterList[index];
     return GestureDetector(
       onTap: () {
-        repository.getCharacter();
-        print(repository.characterList);
-        Navigator.of(context).pushNamed(CharacterDetailsScreen.routeName);
+        Navigator.of(context)
+            .pushNamed(CharacterDetailsScreen.routeName, arguments: character);
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -30,14 +33,14 @@ class CharacterCard extends StatelessWidget {
             decoration: BoxDecoration(color: Theme.of(context).backgroundColor),
             child: Row(
               children: [
-                Image.network(repository.characterList[index].image),
+                Image.network(character.image),
                 Flexible(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(repository.characterList[index].name,
+                          Text(character.name,
                               maxLines: 2,
                               softWrap: true,
                               style: const TextStyle(
@@ -63,8 +66,27 @@ class CharacterCard extends StatelessWidget {
                               Text(
                                   "${character.status} - ${character.species} ",
                                   style: const TextStyle(
-                                      color: Colors.white, fontSize: 12)),
+                                    color: Colors.white,
+                                  )),
                             ],
+                          ),
+                          const Text(
+                            "Last known location:",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          Text(
+                            character.location.name,
+                            style: const TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          Text(
+                            character.episode[0],
+                            style: const TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
                         ]),
                   ),

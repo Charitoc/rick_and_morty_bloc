@@ -15,7 +15,7 @@ class Character {
   final String image;
   final List<String> episode;
   final String url;
-  // final DateTime created;
+  final DateTime created;
 
   Character(
     this.id,
@@ -29,7 +29,7 @@ class Character {
     this.image,
     this.episode,
     this.url,
-    // this.created,
+    this.created,
   );
 
   Character copyWith({
@@ -44,7 +44,7 @@ class Character {
     String? image,
     List<String>? episode,
     String? url,
-    // DateTime? created,
+    DateTime? created,
   }) {
     return Character(
       id ?? this.id,
@@ -58,7 +58,7 @@ class Character {
       image ?? this.image,
       episode ?? this.episode,
       url ?? this.url,
-      // created ?? this.created,
+      created ?? this.created,
     );
   }
 
@@ -75,7 +75,7 @@ class Character {
       'image': image,
       'episode': episode,
       'url': url,
-      // 'created': created.millisecondsSinceEpoch,
+      'created': created.toIso8601String(),
     };
   }
 
@@ -92,7 +92,7 @@ class Character {
       map['image'] ?? '',
       List<String>.from(map['episode']),
       map['url'] ?? '',
-      // DateTime.fromMillisecondsSinceEpoch(map['created']),
+      DateTime.parse(map['created']),
     );
   }
 
@@ -103,7 +103,7 @@ class Character {
 
   @override
   String toString() {
-    return 'Character(id: $id, name: $name, status: $status, species: $species, type: $type, gender: $gender, origin: $origin, location: $location, image: $image, episode: $episode, url: $url)';
+    return 'Character(id: $id, name: $name, status: $status, species: $species, type: $type, gender: $gender, origin: $origin, location: $location, image: $image, episode: $episode, url: $url, created: ${created.toIso8601String()})';
   }
 
   @override
@@ -121,8 +121,8 @@ class Character {
         other.location == location &&
         other.image == image &&
         listEquals(other.episode, episode) &&
-        other.url == url;
-    // other.created == created;
+        other.url == url &&
+        other.created == created;
   }
 
   @override
@@ -137,7 +137,7 @@ class Character {
         location.hashCode ^
         image.hashCode ^
         episode.hashCode ^
-        url.hashCode;
-    // created.hashCode;
+        url.hashCode ^
+        created.hashCode;
   }
 }

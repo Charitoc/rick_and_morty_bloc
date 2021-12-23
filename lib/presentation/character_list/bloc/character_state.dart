@@ -1,7 +1,19 @@
 part of 'character_bloc.dart';
 
 @immutable
-abstract class CharactersState extends Equatable {}
+abstract class CharactersState extends Equatable {
+  final List<Character> characters = [];
+  // final Info.
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
+
+class CharacterInitialState extends CharactersState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
 class CharacterFetchingState extends CharactersState {
   CharacterFetchingState();
@@ -18,16 +30,12 @@ class CharacterFetchedState extends CharactersState {
   @override
   // TODO: implement props
   List<Object?> get props => [characters];
-}
 
-class CharacterErrorState extends CharactersState {
-  @override
-  // TODO: implement props
-  List<Object?> get props => [];
-}
-
-class DummyState extends CharactersState {
-  @override
-  // TODO: implement props
-  List<Object?> get props => [];
+  CharacterFetchedState copyWith({
+    List<Character>? characters,
+  }) {
+    return CharacterFetchedState(
+      characters: characters ?? this.characters,
+    );
+  }
 }
