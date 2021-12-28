@@ -2,6 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
+List<Episode> episodesFromJson(String str) =>
+    List<Episode>.from(json.decode(str).map((x) => Episode.fromJson(x)));
+
+String episodesToJson(List<Episode> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+List<Episode> allEpisodesFromJson(String str) =>
+    List<Episode>.from(json.decode(str[0]).map((x) => Episode.fromJson(x)));
+
 class Episode {
   final int id;
   final String name;
@@ -61,14 +70,13 @@ class Episode {
       map['episode'] ?? '',
       List<String>.from(map['characters']),
       map['url'] ?? '',
-      DateTime.fromMillisecondsSinceEpoch(map['created']),
+      DateTime.parse(map['created']),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Episode.fromJson(String source) =>
-      Episode.fromMap(json.decode(source));
+  factory Episode.fromJson(Map<String, dynamic> json) => Episode.fromMap(json);
 
   @override
   String toString() {

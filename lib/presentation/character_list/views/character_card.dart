@@ -17,7 +17,6 @@ class CharacterCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Character character = repository.characterList[index];
     return GestureDetector(
       onTap: () {
         Navigator.of(context)
@@ -40,13 +39,15 @@ class CharacterCard extends StatelessWidget {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(character.name,
-                              maxLines: 2,
-                              softWrap: true,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.bold)),
+                          FittedBox(
+                            child: Text(character.name,
+                                maxLines: 2,
+                                softWrap: true,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold)),
+                          ),
                           Row(
                             children: [
                               Container(
@@ -79,6 +80,12 @@ class CharacterCard extends StatelessWidget {
                           Text(
                             character.location.name,
                             style: const TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          const Text(
+                            "First seen in:",
+                            style: TextStyle(
                               color: Colors.white,
                             ),
                           ),
