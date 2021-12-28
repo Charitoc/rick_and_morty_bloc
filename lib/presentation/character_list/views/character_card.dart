@@ -13,7 +13,9 @@ class ScreenArguments {
 
 class CharacterCard extends StatelessWidget {
   final Character character;
-  const CharacterCard({Key? key, required this.character}) : super(key: key);
+  final Map<int, String> map;
+  const CharacterCard({Key? key, required this.character, required this.map})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +92,8 @@ class CharacterCard extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            character.episode[0],
+                            map[character.id] ?? '',
+                            // character.episode[0],
                             style: const TextStyle(
                               color: Colors.white,
                             ),

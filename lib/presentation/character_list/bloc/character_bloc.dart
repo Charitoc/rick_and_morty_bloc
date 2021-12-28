@@ -20,16 +20,15 @@ class CharacterBloc extends Bloc<CharactersEvent, CharactersState> {
           await characterRepository.fetchAllCharacters(page: state.page);
       List<Character> charactersNextPage = allchars.characters;
 
-      // charactersNextPage.characters
       List<Episode> episodes = await fetchEps(charactersNextPage);
 
-      print(state.characters.length);
-      // print("state.page : ${state.isLoading}");
       print(
           'Episodes list length is: ${state.episodes.length} and last element is: ${episodes[episodes.length - 1].name}');
-      // print(charactersnextpage.length);
-      // state.mapper(state.characters, state.episodes);
-      Map<int, String> map = toMap(state.characters, state.episodes);
+
+      print("page is: ${state.page}");
+
+      Map<int, String> map = await toMap(charactersNextPage, episodes);
+      map.addAll(state.map);
       emit(state.copyWith(
           characters: List.from(state.characters + charactersNextPage),
           episodes: state.episodes + episodes,
@@ -58,7 +57,8 @@ class CharacterBloc extends Bloc<CharactersEvent, CharactersState> {
     return episodeList;
   }
 
-  Map<int, String> toMap(List<Character> characters, List<Episode> episodes) {
+  Future<Map<int, String>> toMap(
+      List<Character> characters, List<Episode> episodes) async {
     final Map<int, String> map = {};
 
     for (Character character in characters) {
@@ -70,12 +70,7 @@ class CharacterBloc extends Bloc<CharactersEvent, CharactersState> {
           map[character.id] = episode.name;
         }
       }
-
-      // }
-
-      // List.from(characters.map((e) => e.episode[0]));
     }
-    print(map);
     return map;
   }
 }
