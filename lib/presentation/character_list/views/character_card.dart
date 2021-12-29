@@ -34,8 +34,12 @@ class CharacterCard extends StatelessWidget {
             decoration: BoxDecoration(color: Theme.of(context).backgroundColor),
             child: Row(
               children: [
-                Image.network(character.image),
+                FadeInImage(
+                    fit: BoxFit.fitHeight,
+                    placeholder: const AssetImage('assets/placeholder.png'),
+                    image: NetworkImage(character.image)),
                 Flexible(
+                  fit: FlexFit.tight,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -91,11 +95,13 @@ class CharacterCard extends StatelessWidget {
                               color: Colors.white,
                             ),
                           ),
-                          Text(
-                            map[character.id] ?? '',
-                            // character.episode[0],
-                            style: const TextStyle(
-                              color: Colors.white,
+                          FittedBox(
+                            child: Text(
+                              map[character.id] ?? '',
+                              // character.episode[0],
+                              style: const TextStyle(
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ]),

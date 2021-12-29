@@ -63,7 +63,6 @@ class CharacterBloc extends Bloc<CharactersEvent, CharactersState> {
 
     for (Character character in characters) {
       for (Episode episode in episodes) {
-        // print(character.name);
         if (episode.url == character.episode[0]) {
           print(
               "Character's name is: ${character.name} and first episode name is: ${episode.name}");

@@ -40,7 +40,7 @@ class CharactersState extends Equatable {
 
       // List.from(characters.map((e) => e.episode[0]));
     }
-    print(map);
+    // print(map);
     return map;
   }
 
