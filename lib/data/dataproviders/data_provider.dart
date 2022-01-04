@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:rick_morty_bloc/data/models/episode.dart';
 
-class DataProvider {
+class ApiProvider {
   static Future fetchPageCharacters({required int page}) async {
     var options = BaseOptions(
       baseUrl:
@@ -28,8 +27,6 @@ class DataProvider {
     late Dio dio = Dio(options);
 
     final response = await dio.request('');
-    // print(response.data);
-
     return response.data;
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rick_morty_bloc/data/models/character.dart';
+import 'package:rick_morty_bloc/data/models/characterDTO.dart';
 
 class CharacterDetailsScreen extends StatelessWidget {
   static const routeName = '/character_details_screen';
@@ -71,7 +72,7 @@ class CharacterDetailsScreen extends StatelessWidget {
             ),
             FittedBox(
               child: Text(
-                "Location: ${character.location.name}",
+                "Location: ${character.location}",
                 style: const TextStyle(color: Colors.white, fontSize: 18),
               ),
             ),

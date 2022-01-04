@@ -53,7 +53,6 @@ class CharacterListScreen extends StatelessWidget {
               itemCount: state.characters.length,
               itemBuilder: (ctx, index) => CharacterCard(
                     character: state.characters[index],
-                    map: state.map,
                   ));
         }));
   }

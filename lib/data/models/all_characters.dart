@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-import 'package:rick_morty_bloc/data/models/character.dart';
+import 'package:rick_morty_bloc/data/models/characterDTO.dart';
 import 'package:rick_morty_bloc/data/models/info.dart';
 
 class AllCharacters {
   final Info info;
-  final List<Character> characters;
+  final List<CharacterDTO> characters;
 
   AllCharacters(
     this.info,
@@ -16,7 +16,7 @@ class AllCharacters {
 
   AllCharacters copyWith({
     Info? info,
-    List<Character>? characters,
+    List<CharacterDTO>? characters,
   }) {
     return AllCharacters(
       info ?? this.info,
@@ -34,7 +34,8 @@ class AllCharacters {
   factory AllCharacters.fromMap(Map<String, dynamic> map) {
     return AllCharacters(
       Info.fromMap(map['info']),
-      List<Character>.from(map['results']?.map((x) => Character.fromMap(x))),
+      List<CharacterDTO>.from(
+          map['results']?.map((x) => CharacterDTO.fromMap(x))),
     );
   }
 

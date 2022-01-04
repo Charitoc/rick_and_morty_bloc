@@ -10,12 +10,3 @@ class CharactersFetchingEvent extends CharactersEvent {
   // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
 }
-
-// class CharactersFetchedEvent extends CharactersEvent {
-//   late final List<Character> allCharacters;
-//   CharactersFetchedEvent({required this.allCharacters});
-
-//   @override
-//   // TODO: implement props
-//   List<Object?> get props => throw UnimplementedError();
-// }

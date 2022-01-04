@@ -3,6 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:rick_morty_bloc/data/models/all_characters.dart';
 import 'package:rick_morty_bloc/data/models/character.dart';
+import 'package:rick_morty_bloc/data/models/characterDTO.dart';
+import 'package:rick_morty_bloc/data/models/characterDTO_to_character_mapper.dart';
 import 'package:rick_morty_bloc/data/models/episode.dart';
 import 'package:rick_morty_bloc/data/repositories/character_repository.dart';
 
@@ -14,31 +16,28 @@ class CharacterBloc extends Bloc<CharactersEvent, CharactersState> {
 
   CharacterBloc(this.characterRepository)
       : super(const CharactersState(
-            characters: [], episodes: [], map: {}, isLoading: true, page: 1)) {
+            characters: [], episodes: [], isLoading: true, page: 1)) {
     on<CharactersFetchingEvent>((event, emit) async {
       AllCharacters allchars =
           await characterRepository.fetchAllCharacters(page: state.page);
-      List<Character> charactersNextPage = allchars.characters;
+      List<CharacterDTO> charactersNextPageDTO = allchars.characters;
+      List<Episode> episodes = await fetchEps(charactersNextPageDTO);
 
-      List<Episode> episodes = await fetchEps(charactersNextPage);
+      // Map<int, String> map = await toMap(charactersNextPage, episodes);
+      // map.addAll(state.map);
 
-      print(
-          'Episodes list length is: ${state.episodes.length} and last element is: ${episodes[episodes.length - 1].name}');
+      List<Character> charactersNextPage =
+          CharacterDTOtoCharacter.mapper(charactersNextPageDTO, episodes);
 
-      print("page is: ${state.page}");
-
-      Map<int, String> map = await toMap(charactersNextPage, episodes);
-      map.addAll(state.map);
       emit(state.copyWith(
           characters: List.from(state.characters + charactersNextPage),
           episodes: state.episodes + episodes,
-          map: map,
           isLoading: false,
           page: state.page + 1));
     });
   }
 
-  Future<List<Episode>> fetchEps(List<Character> charactersnextpage) async {
+  Future<List<Episode>> fetchEps(List<CharacterDTO> charactersnextpage) async {
     List<String> episodes = charactersnextpage.map((e) {
       return e.episode.isNotEmpty ? e.episode[0] : '';
     }).toList();
@@ -53,15 +52,14 @@ class CharacterBloc extends Bloc<CharactersEvent, CharactersState> {
 
     List<Episode> episodeList =
         await characterRepository.fetchEpisodes(episodeIds.join(','));
-    // print(episodeList);
     return episodeList;
   }
 
   Future<Map<int, String>> toMap(
-      List<Character> characters, List<Episode> episodes) async {
+      List<CharacterDTO> characters, List<Episode> episodes) async {
     final Map<int, String> map = {};
 
-    for (Character character in characters) {
+    for (CharacterDTO character in characters) {
       for (Episode episode in episodes) {
         if (episode.url == character.episode[0]) {
           print(

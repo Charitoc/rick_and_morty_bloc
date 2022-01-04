@@ -8,9 +8,6 @@ List<Episode> episodesFromJson(String str) =>
 String episodesToJson(List<Episode> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-List<Episode> allEpisodesFromJson(String str) =>
-    List<Episode>.from(json.decode(str[0]).map((x) => Episode.fromJson(x)));
-
 class Episode {
   final int id;
   final String name;

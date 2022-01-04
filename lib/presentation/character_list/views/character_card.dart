@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:rick_morty_bloc/data/dataproviders/data_provider.dart';
 import 'package:rick_morty_bloc/data/models/character.dart';
+import 'package:rick_morty_bloc/data/models/characterDTO.dart';
 import 'package:rick_morty_bloc/data/repositories/character_repository.dart';
 import 'package:rick_morty_bloc/presentation/character_details/views/character_details_screen.dart';
 
-class ScreenArguments {
-  final String title;
-  final String message;
+// class ScreenArguments {
+//   final String title;
+//   final String message;
 
-  ScreenArguments(this.title, this.message);
-}
+//   ScreenArguments(this.title, this.message);
+// }
 
 class CharacterCard extends StatelessWidget {
   final Character character;
-  final Map<int, String> map;
-  const CharacterCard({Key? key, required this.character, required this.map})
-      : super(key: key);
+  // final Map<int, String> map;
+  const CharacterCard({Key? key, required this.character}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +29,20 @@ class CharacterCard extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(12),
           child: Container(
-            width: MediaQuery.of(context).size.width,
+            // width: MediaQuery.of(context).size.width - 20,
             height: 140,
             decoration: BoxDecoration(color: Theme.of(context).backgroundColor),
             child: Row(
               children: [
-                FadeInImage(
-                    fit: BoxFit.fitHeight,
+                Flexible(
+                  child: FadeInImage(
                     placeholder: const AssetImage('assets/placeholder.png'),
-                    image: NetworkImage(character.image)),
+                    image: NetworkImage(
+                      character.image,
+                      // fit: BoxFit.fitHeight,
+                    ),
+                  ),
+                ),
                 Flexible(
                   fit: FlexFit.tight,
                   child: Padding(
@@ -54,28 +59,32 @@ class CharacterCard extends StatelessWidget {
                                     fontSize: 19,
                                     fontWeight: FontWeight.bold)),
                           ),
-                          Row(
-                            children: [
-                              Container(
-                                width: 12,
-                                height: 12,
-                                decoration: BoxDecoration(
-                                    color: character.status == "Alive"
-                                        ? Colors.lightGreenAccent
-                                        : character.status == "Dead"
-                                            ? Colors.red
-                                            : Colors.grey[350],
-                                    borderRadius: BorderRadius.circular(90)),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                  "${character.status} - ${character.species} ",
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                  )),
-                            ],
+                          Flexible(
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 12,
+                                  height: 12,
+                                  decoration: BoxDecoration(
+                                      color: character.status == "Alive"
+                                          ? Colors.lightGreenAccent
+                                          : character.status == "Dead"
+                                              ? Colors.red
+                                              : Colors.grey[350],
+                                      borderRadius: BorderRadius.circular(90)),
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Flexible(
+                                  child: Text(
+                                      "${character.status} - ${character.species} ",
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                      )),
+                                ),
+                              ],
+                            ),
                           ),
                           const Text(
                             "Last known location:",
@@ -84,7 +93,7 @@ class CharacterCard extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            character.location.name,
+                            character.location,
                             style: const TextStyle(
                               color: Colors.white,
                             ),
@@ -97,7 +106,7 @@ class CharacterCard extends StatelessWidget {
                           ),
                           FittedBox(
                             child: Text(
-                              map[character.id] ?? '',
+                              character.firstEpisode,
                               // character.episode[0],
                               style: const TextStyle(
                                 color: Colors.white,

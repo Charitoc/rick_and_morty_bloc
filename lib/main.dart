@@ -1,10 +1,23 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_morty_bloc/data/repositories/character_repository.dart';
 import 'package:rick_morty_bloc/presentation/character_details/views/character_details_screen.dart';
 import 'package:rick_morty_bloc/presentation/character_list/views/character_list_screen.dart';
 
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
+
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
+
   runApp(MyApp(
     repository: CharacterRepository(),
   ));
