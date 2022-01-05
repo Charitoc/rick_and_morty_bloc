@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rick_morty_bloc/data/dataproviders/data_provider.dart';
 import 'package:rick_morty_bloc/data/models/character.dart';
-import 'package:rick_morty_bloc/data/models/characterDTO.dart';
+import 'package:rick_morty_bloc/data/models/character_dto.dart';
 import 'package:rick_morty_bloc/data/repositories/character_repository.dart';
-import 'package:rick_morty_bloc/presentation/character_details/views/character_details_screen.dart';
+import 'package:rick_morty_bloc/character_list_view/views/character_details_screen.dart';
 
 // class ScreenArguments {
 //   final String title;
@@ -13,16 +13,16 @@ import 'package:rick_morty_bloc/presentation/character_details/views/character_d
 // }
 
 class CharacterCard extends StatelessWidget {
-  final Character character;
-  // final Map<int, String> map;
   const CharacterCard({Key? key, required this.character}) : super(key: key);
+
+  final Character character;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.of(context)
-            .pushNamed(CharacterDetailsScreen.routeName, arguments: character);
+            .push(CharacterDetailsScreen.route(context, character: character));
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

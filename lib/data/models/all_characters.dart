@@ -1,9 +1,8 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
-import 'package:rick_morty_bloc/data/models/characterDTO.dart';
+import 'package:rick_morty_bloc/data/models/character_dto.dart';
 import 'package:rick_morty_bloc/data/models/info.dart';
 
 class AllCharacters extends Equatable {

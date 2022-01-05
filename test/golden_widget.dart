@@ -1,16 +1,10 @@
-import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import 'package:rick_morty_bloc/data/models/character.dart';
-import 'package:rick_morty_bloc/data/models/characterDTO.dart';
 import 'package:rick_morty_bloc/data/repositories/character_repository.dart';
-import 'package:rick_morty_bloc/main.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
-import 'package:rick_morty_bloc/presentation/character_list/bloc/character_bloc.dart';
-import 'package:rick_morty_bloc/presentation/character_list/views/character_card.dart';
+import 'package:rick_morty_bloc/character_list_view/widgets/character_card.dart';
 
 class MockCharacterRepository extends Mock implements CharacterRepository {}
 

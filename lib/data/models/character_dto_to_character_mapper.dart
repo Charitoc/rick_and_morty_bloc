@@ -1,5 +1,5 @@
 import 'package:rick_morty_bloc/data/models/character.dart';
-import 'package:rick_morty_bloc/data/models/characterDTO.dart';
+import 'package:rick_morty_bloc/data/models/character_dto.dart';
 import 'package:rick_morty_bloc/data/models/episode.dart';
 
 class CharacterDTOtoCharacter {

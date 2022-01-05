@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:rick_morty_bloc/data/models/character.dart';
-import 'package:rick_morty_bloc/data/models/characterDTO.dart';
 
 class CharacterDetailsScreen extends StatelessWidget {
-  static const routeName = '/character_details_screen';
+  const CharacterDetailsScreen({Key? key, required this.character})
+      : super(key: key);
 
-  const CharacterDetailsScreen({Key? key}) : super(key: key);
+  final Character character;
+
+  static PageRoute route(
+    BuildContext context, {
+    Key? key,
+    required Character character,
+  }) =>
+      MaterialPageRoute(
+        builder: (context) => CharacterDetailsScreen(character: character),
+      );
 
   @override
   Widget build(BuildContext context) {
-    final character = ModalRoute.of(context)!.settings.arguments as Character;
     print(character);
     return Scaffold(
       appBar: AppBar(),

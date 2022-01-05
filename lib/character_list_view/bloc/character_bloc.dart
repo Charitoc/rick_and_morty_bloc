@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:rick_morty_bloc/data/models/all_characters.dart';
 import 'package:rick_morty_bloc/data/models/character.dart';
-import 'package:rick_morty_bloc/data/models/characterDTO.dart';
-import 'package:rick_morty_bloc/data/models/characterDTO_to_character_mapper.dart';
+import 'package:rick_morty_bloc/data/models/character_dto.dart';
+import 'package:rick_morty_bloc/data/models/character_dto_to_character_mapper.dart';
 import 'package:rick_morty_bloc/data/models/episode.dart';
 import 'package:rick_morty_bloc/data/repositories/character_repository.dart';
 
