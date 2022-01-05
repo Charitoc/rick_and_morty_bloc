@@ -8,7 +8,7 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:rick_morty_bloc/presentation/character_details/views/character_details_screen.dart';
 import 'package:rick_morty_bloc/presentation/character_list/views/character_card.dart';
 
-import 'utils/wrap_with_scaffold.dart';
+import '../utils/wrap_with_scaffold.dart';
 
 class MockCharacterRepository extends Mock implements CharacterRepository {}
 

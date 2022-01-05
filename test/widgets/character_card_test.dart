@@ -10,7 +10,7 @@ import 'package:rick_morty_bloc/presentation/character_details/views/character_d
 import 'package:rick_morty_bloc/presentation/character_list/views/character_card.dart';
 import 'package:rick_morty_bloc/presentation/character_list/views/character_list_screen.dart';
 
-import 'utils/wrap_with_scaffold.dart';
+import '../utils/wrap_with_scaffold.dart';
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
