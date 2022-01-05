@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rick_morty_bloc/data/dataproviders/data_provider.dart';
 import 'package:rick_morty_bloc/data/repositories/character_repository.dart';
 import 'package:rick_morty_bloc/presentation/character_details/views/character_details_screen.dart';
 import 'package:rick_morty_bloc/presentation/character_list/views/character_list_screen.dart';
@@ -19,7 +20,7 @@ void main() {
   HttpOverrides.global = MyHttpOverrides();
 
   runApp(MyApp(
-    repository: CharacterRepository(),
+    repository: CharacterRepository(remoteDS: ApiProvider.instance),
   ));
 }
 
