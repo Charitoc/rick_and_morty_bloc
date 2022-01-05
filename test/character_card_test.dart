@@ -43,13 +43,12 @@ void main() {
     testWidgets("gets tapped", (tester) async {
       await mockNetworkImagesFor(
         () async {
-          await tester.pumpWidget(MaterialApp(
-              home: CharacterCard(
+          await tester.pumpWidget(wrapWithScaffoldApp(CharacterCard(
             character: character,
           )));
         },
       );
-      await tester.tap(find.byType(CharacterCard));
+      await tester.tap(find.byType(GestureDetector));
       await tester.pumpAndSettle();
       expect(find.byType(CharacterDetailsScreen), findsOneWidget);
     });
