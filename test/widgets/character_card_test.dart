@@ -10,7 +10,7 @@ import 'package:rick_morty_bloc/character_list_view/widgets/character_card.dart'
 
 import '../utils/wrap_with_scaffold.dart';
 
-class MockNavigatorObserver extends Mock implements NavigatorObserver {}
+// class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
 class MockRepository extends Mock implements CharacterRepository {}
 

@@ -1,8 +1,8 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:rick_morty_bloc/character_list_view/bloc/character_bloc.dart';
 import 'package:rick_morty_bloc/data/repositories/character_repository.dart';
-import 'package:rick_morty_bloc/presentation/character_list/bloc/character_bloc.dart';
 
 class MockCharacterRepository extends Mock implements CharacterRepository {}
 

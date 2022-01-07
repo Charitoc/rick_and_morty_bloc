@@ -7,14 +7,14 @@ class CharacterRepository {
 
   final ApiProvider remoteDS;
 
-  Future fetchAllCharacters({required int page}) async {
+  Future<AllCharacters> fetchAllCharacters({required int page}) async {
     var data = await remoteDS.fetchPageCharacters(page: page);
 
     print('Got in fetchAllCharacters');
     return AllCharacters.fromJson(data);
   }
 
-  Future fetchEpisodes(String episodes) async {
+  Future<List<Episode>> fetchEpisodes(String episodes) async {
     print("Got in fetchEpisodes");
     var formattedEpisodes =
         await remoteDS.fetchSelectedEpisodes(page: episodes);

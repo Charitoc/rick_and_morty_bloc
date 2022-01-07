@@ -18,12 +18,13 @@ class CharacterBloc extends Bloc<CharactersEvent, CharactersState> {
       : super(const CharactersState(
             characters: [], episodes: [], isLoading: true, page: 1)) {
     on<CharactersFetchingEvent>((event, emit) async {
+      print('before fetch');
       AllCharacters allchars =
           await characterRepository.fetchAllCharacters(page: state.page);
-      List<CharacterDTO> charactersNextPageDTO = allchars.characters;
-      List<Episode> episodes = await fetchEps(charactersNextPageDTO);
+      final charactersNextPageDTO = allchars.characters;
+      final episodes = await fetchEps(charactersNextPageDTO);
 
-      // Map<int, String> map = await toMap(charactersNextPage, episodes);
+      // Map<int, String> map = await toMaps(charactersNextPage, episodes);
       // map.addAll(state.map);
 
       List<Character> charactersNextPage =
