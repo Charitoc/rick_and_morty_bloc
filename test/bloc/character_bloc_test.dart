@@ -7,19 +7,18 @@ import 'package:rick_morty_bloc/data/repositories/character_repository.dart';
 class MockCharacterRepository extends Mock implements CharacterRepository {}
 
 void main() {
+  MockCharacterRepository characterRepository = MockCharacterRepository();
+  late CharacterBloc characterBloc;
+
+  setUp(() {
+    characterBloc = CharacterBloc(characterRepository);
+  });
+
+  tearDown(() {
+    characterBloc.close();
+  });
+
   group("CharacterBloc", () {
-    MockCharacterRepository characterRepository;
-    late CharacterBloc characterBloc;
-
-    setUp(() {
-      characterRepository = MockCharacterRepository();
-      characterBloc = CharacterBloc(characterRepository);
-    });
-
-    tearDown(() {
-      characterBloc.close();
-    });
-
     test("The initial state of the Bloc is []", () {
       expect(characterBloc.state.characters, []);
     });
