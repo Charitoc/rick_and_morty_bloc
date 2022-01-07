@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rick_morty_bloc/data/dataproviders/data_provider.dart';
 import 'package:rick_morty_bloc/data/repositories/character_repository.dart';
-import 'package:rick_morty_bloc/presentation/character_details/views/character_details_screen.dart';
-import 'package:rick_morty_bloc/presentation/character_list/views/character_list_screen.dart';
+import 'character_list_view/views/character_list_screen.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -19,7 +19,7 @@ void main() {
   HttpOverrides.global = MyHttpOverrides();
 
   runApp(MyApp(
-    repository: CharacterRepository(),
+    repository: CharacterRepository(remoteDS: ApiProvider.instance),
   ));
 }
 
@@ -43,9 +43,6 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: const CharacterListPage(),
-        routes: {
-          CharacterDetailsScreen.routeName: (ctx) => CharacterDetailsScreen()
-        },
       ),
     );
   }

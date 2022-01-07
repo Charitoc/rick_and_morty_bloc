@@ -5,8 +5,8 @@ import 'package:network_image_mock/network_image_mock.dart';
 import 'package:rick_morty_bloc/data/models/character.dart';
 import 'package:rick_morty_bloc/data/repositories/character_repository.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
-import 'package:rick_morty_bloc/presentation/character_details/views/character_details_screen.dart';
-import 'package:rick_morty_bloc/presentation/character_list/views/character_card.dart';
+import 'package:rick_morty_bloc/character_list_view/views/character_details_screen.dart';
+import 'package:rick_morty_bloc/character_list_view/widgets/character_card.dart';
 
 import '../utils/wrap_with_scaffold.dart';
 
@@ -108,19 +108,8 @@ void main() {
               image: "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
               firstEpisode: "firstEpisode");
 
-          final widget = MaterialApp(
-            debugShowCheckedModeBanner: false,
-            onGenerateRoute: (settings) {
-              return MaterialPageRoute(
-                settings: RouteSettings(
-                  arguments: character,
-                ),
-                builder: (context) {
-                  return CharacterDetailsScreen();
-                },
-              );
-            },
-          );
+          final widget = wrapWithMaterialApp(
+              CharacterDetailsScreen(character: character), null);
           await tester.pumpWidgetBuilder(widget);
         },
       );

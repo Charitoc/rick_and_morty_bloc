@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_morty_bloc/data/repositories/character_repository.dart';
-import 'package:rick_morty_bloc/presentation/character_list/bloc/character_bloc.dart';
-import 'package:rick_morty_bloc/presentation/character_list/views/character_card.dart';
+import 'package:rick_morty_bloc/character_list_view/bloc/character_bloc.dart';
+import 'package:rick_morty_bloc/character_list_view/widgets/character_card.dart';
 
 class CharacterListPage extends StatelessWidget {
   const CharacterListPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final repository = context.read<CharacterRepository>();
     return BlocProvider(
-      create: (context) =>
-          CharacterBloc(repository)..add(CharactersFetchingEvent()),
+      create: (context) => CharacterBloc(context.read<CharacterRepository>())
+        ..add(CharactersFetchingEvent()),
       child: CharacterListScreen(),
     );
   }

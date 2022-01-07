@@ -1,32 +1,26 @@
 import 'package:dio/dio.dart';
 
 class ApiProvider {
-  static Future fetchPageCharacters({required int page}) async {
-    var options = BaseOptions(
-      baseUrl:
-          'https://rickandmortyapi.com/api/character/?page=' + page.toString(),
-      connectTimeout: 5000,
-      receiveTimeout: 3000,
-      responseType: ResponseType.plain,
-      method: "GET",
-    );
-    late Dio dio = Dio(options);
+  ApiProvider._privateConstructor();
 
-    final response = await dio.request('');
-    return response.data;
+  static final ApiProvider instance = ApiProvider._privateConstructor();
+
+  static final restClient = Dio(BaseOptions(
+    baseUrl: 'https://rickandmortyapi.com/',
+    connectTimeout: 5000,
+    receiveTimeout: 3000,
+    responseType: ResponseType.plain,
+  ));
+
+  Future fetchPageCharacters({required int page}) async {
+    return restClient
+        .get('api/character/?page=' + page.toString())
+        .then((response) => response.data);
   }
 
-  static Future fetchSelectedEpisodes({required String page}) async {
-    var options = BaseOptions(
-      baseUrl: 'https://rickandmortyapi.com/api/episode/' + page,
-      connectTimeout: 5000,
-      receiveTimeout: 3000,
-      responseType: ResponseType.plain,
-      method: "GET",
-    );
-    late Dio dio = Dio(options);
-
-    final response = await dio.request('');
-    return response.data;
+  Future fetchSelectedEpisodes({required String page}) async {
+    return restClient
+        .get('api/episode/' + page)
+        .then((response) => response.data);
   }
 }
