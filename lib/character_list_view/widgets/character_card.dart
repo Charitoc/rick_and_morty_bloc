@@ -34,7 +34,9 @@ class CharacterCard extends StatelessWidget {
             decoration: BoxDecoration(color: Theme.of(context).backgroundColor),
             child: Row(
               children: [
-                Flexible(
+                Container(
+                  height: 140,
+                  width: 140,
                   child: FadeInImage(
                     placeholder: const AssetImage('assets/placeholder.png'),
                     image: NetworkImage(
