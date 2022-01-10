@@ -7,12 +7,6 @@ class CharacterDTOtoCharacter {
       List<CharacterDTO> characterDTO, List<Episode> episodes) {
     List<Character> characterList = [];
 
-    // characterList = characterDTO.map((e) {
-    //   for (Episode episode in episodes) {
-    //     if (episode == e.)
-    //   }
-    // });
-
     for (CharacterDTO characterDTO in characterDTO) {
       Character character = Character(
         name: characterDTO.name,
@@ -26,7 +20,7 @@ class CharacterDTOtoCharacter {
       );
       for (Episode episode in episodes) {
         if (episode.url == characterDTO.episode[0]) {
-          character.copyWith(
+          character = Character(
             name: characterDTO.name,
             status: characterDTO.status,
             species: characterDTO.species,
@@ -36,16 +30,6 @@ class CharacterDTOtoCharacter {
             image: characterDTO.image,
             firstEpisode: episode.name,
           );
-          // Character character = Character(
-          //   name: characterDTO.name,
-          //   status: characterDTO.status,
-          //   species: characterDTO.species,
-          //   type: characterDTO.type,
-          //   gender: characterDTO.gender,
-          //   location: characterDTO.location.name,
-          //   image: characterDTO.image,
-          //   firstEpisode: episode.name,
-          // );
           characterList.add(character);
           break;
         }

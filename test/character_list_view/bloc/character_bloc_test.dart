@@ -18,10 +18,10 @@ class MockEpisodes extends Mock implements Episode {}
 
 void main() {
   final Location loc = Location("location", "location");
-  List<String> charlist = ['url', 'sdfsdf'];
+  List<String> charlist = ["url", 'sdfsdf'];
   List<Episode> episodes = [
     Episode(2, "firstEpisode", "airDate", "episode", charlist, "url",
-        DateTime.now())
+        DateTime.now()),
   ];
   final Info info =
       Info(826, 42, "https://rickandmortyapi.com/api/character/?page=1", null);
@@ -38,7 +38,7 @@ void main() {
       episode: charlist,
       id: 2,
       origin: loc,
-      url: 'url',
+      url: "url",
     ),
   ];
 
@@ -55,7 +55,7 @@ void main() {
   ];
 
   final allCharacters = AllCharacters(info: info, characters: characterList);
-  // final allchars = MockAllchars();
+
   group("CharacterBloc", () {
     late MockCharacterRepository characterRepository;
     late CharacterBloc characterBloc;
@@ -68,13 +68,6 @@ void main() {
     test("The initial state of the Bloc is []", () {
       expect(characterBloc.state.characters, []);
     });
-
-    // blocTest<CharacterBloc, CharactersState>(
-    //   "Fetching internet data is",
-    //   build: () => characterBloc,
-    //   act: (bloc) => bloc.add(CharactersFetchingEvent()),
-    //   expect: () => CharactersState(characters: [], episodes: [], isLoading: ),
-    // );
 
     blocTest<CharacterBloc, CharactersState>(
       "Fetching internet data is",
