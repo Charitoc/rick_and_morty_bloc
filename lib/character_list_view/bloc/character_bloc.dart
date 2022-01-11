@@ -15,8 +15,11 @@ class CharacterBloc extends Bloc<CharactersEvent, CharactersState> {
   final CharacterRepository characterRepository;
 
   CharacterBloc(this.characterRepository)
-      : super(const CharactersState(
-            characters: [], episodes: [], isLoading: true, page: 1)) {
+      : super(CharactersState.initial(
+            characters: const [],
+            episodes: const [],
+            isLoading: true,
+            page: 1)) {
     on<CharactersFetchingEvent>((event, emit) async {
       print('before fetch');
       AllCharacters allchars =
@@ -24,13 +27,10 @@ class CharacterBloc extends Bloc<CharactersEvent, CharactersState> {
       final charactersNextPageDTO = allchars.characters;
       final episodes = await fetchEps(charactersNextPageDTO);
 
-      // Map<int, String> map = await toMaps(charactersNextPage, episodes);
-      // map.addAll(state.map);
-
       List<Character> charactersNextPage =
           CharacterDTOtoCharacter.mapper(charactersNextPageDTO, episodes);
 
-      emit(state.copyWith(
+      emit(state.success(
           characters: List.from(state.characters + charactersNextPage),
           episodes: state.episodes + episodes,
           isLoading: false,

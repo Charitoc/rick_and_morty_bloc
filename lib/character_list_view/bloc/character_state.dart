@@ -18,7 +18,30 @@ class CharactersState extends Equatable {
   @override
   List<Object?> get props => [characters, isLoading, page];
 
+  factory CharactersState.initial({
+    required List<Character> characters,
+    required List<Episode> episodes,
+    required bool isLoading,
+    required int page,
+  }) {
+    return const CharactersState(
+        characters: [], episodes: [], isLoading: true, page: 1);
+  }
+
   CharactersState loading() => copyWith(isLoading: true);
+
+  CharactersState success({
+    required List<Character> characters,
+    required List<Episode> episodes,
+    required bool isLoading,
+    required int page,
+  }) =>
+      copyWith(
+        characters: characters,
+        episodes: episodes,
+        isLoading: isLoading,
+        page: page,
+      );
 
   CharactersState copyWith({
     List<Character>? characters,
