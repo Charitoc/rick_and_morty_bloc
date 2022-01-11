@@ -7,6 +7,5 @@ class CharactersFetchingEvent extends CharactersEvent {
   CharactersFetchingEvent();
 
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 }

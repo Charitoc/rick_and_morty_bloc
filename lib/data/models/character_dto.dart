@@ -16,7 +16,7 @@ class CharacterDTO extends Equatable {
   final String url;
   final DateTime created;
 
-  CharacterDTO({
+  const CharacterDTO({
     required this.id,
     required this.name,
     required this.status,

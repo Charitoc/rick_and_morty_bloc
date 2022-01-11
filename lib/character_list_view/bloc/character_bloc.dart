@@ -21,14 +21,12 @@ class CharacterBloc extends Bloc<CharactersEvent, CharactersState> {
             isLoading: true,
             page: 1)) {
     on<CharactersFetchingEvent>((event, emit) async {
-      print('before fetch');
       AllCharacters allchars =
           await characterRepository.fetchAllCharacters(page: state.page);
-      final charactersNextPageDTO = allchars.characters;
-      final episodes = await fetchEps(charactersNextPageDTO);
+      final episodes = await fetchEps(allchars.characters);
 
       List<Character> charactersNextPage =
-          CharacterDTOtoCharacter.mapper(charactersNextPageDTO, episodes);
+          CharacterDTOtoCharacter.mapper(allchars.characters, episodes);
 
       emit(state.success(
           characters: List.from(state.characters + charactersNextPage),
@@ -51,24 +49,6 @@ class CharacterBloc extends Bloc<CharactersEvent, CharactersState> {
         .toSet()
         .toList();
 
-    List<Episode> episodeList =
-        await characterRepository.fetchEpisodes(episodeIds.join(','));
-    return episodeList;
-  }
-
-  Future<Map<int, String>> toMap(
-      List<CharacterDTO> characters, List<Episode> episodes) async {
-    final Map<int, String> map = {};
-
-    for (CharacterDTO character in characters) {
-      for (Episode episode in episodes) {
-        if (episode.url == character.episode[0]) {
-          print(
-              "Character's name is: ${character.name} and first episode name is: ${episode.name}");
-          map[character.id] = episode.name;
-        }
-      }
-    }
-    return map;
+    return await characterRepository.fetchEpisodes(episodeIds.join(','));
   }
 }
